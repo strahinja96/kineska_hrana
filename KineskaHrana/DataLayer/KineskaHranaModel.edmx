@@ -1,0 +1,696 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="KineskaHranaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ankete">
+          <Key>
+            <PropertyRef Name="idAnketa" />
+          </Key>
+          <Property Name="idAnketa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pitanje" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="aktivna" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dogadjaji">
+          <Key>
+            <PropertyRef Name="idDogadjaj" />
+          </Key>
+          <Property Name="idDogadjaj" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dogadjaj_opis" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="id_korisnik" Type="int" Nullable="false" />
+          <Property Name="vreme" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Galerija">
+          <Key>
+            <PropertyRef Name="idSlike" />
+          </Key>
+          <Property Name="idSlike" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ime_slike" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="putanja_slike" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="putanja_thumbnail" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jela">
+          <Key>
+            <PropertyRef Name="idJelo" />
+          </Key>
+          <Property Name="idJelo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazivJelo" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="cena" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="slika" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kontakt">
+          <Key>
+            <PropertyRef Name="idKontakt" />
+          </Key>
+          <Property Name="idKontakt" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="prezime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="poruka" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Korisnici">
+          <Key>
+            <PropertyRef Name="idKorisnik" />
+          </Key>
+          <Property Name="idKorisnik" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="idUloga" Type="int" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Meni">
+          <Key>
+            <PropertyRef Name="idMeni" />
+          </Key>
+          <Property Name="idMeni" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv_meni" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="link_meni" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="prioritet_meni" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Narudzbine">
+          <Key>
+            <PropertyRef Name="idNarudzbina" />
+          </Key>
+          <Property Name="idNarudzbina" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idKorisnik" Type="int" Nullable="false" />
+          <Property Name="idJelo" Type="int" Nullable="false" />
+          <Property Name="vreme" Type="datetime" Nullable="false" />
+          <Property Name="cena" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="prezime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="adresa" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Odgovori">
+          <Key>
+            <PropertyRef Name="idOdgovor" />
+          </Key>
+          <Property Name="idOdgovor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="odgovor" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="idAnketa" Type="int" Nullable="false" />
+          <Property Name="brojGlasova" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uloge">
+          <Key>
+            <PropertyRef Name="idUloga" />
+          </Key>
+          <Property Name="idUloga" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazivUloga" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Function Name="AnketeDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idAnketa" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AnketeInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pitanje" Type="nvarchar" Mode="In" />
+          <Parameter Name="aktivna" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AnketePostaviNeaktivne" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="AnketeUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idAnketa" Type="int" Mode="In" />
+          <Parameter Name="pitanje" Type="nvarchar" Mode="In" />
+          <Parameter Name="aktivna" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DogadjajInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="opis" Type="nvarchar" Mode="In" />
+          <Parameter Name="idKorisnik" Type="int" Mode="In" />
+          <Parameter Name="vreme" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GalerijaDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idSlike" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GalerijaInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="imeSlike" Type="nvarchar" Mode="In" />
+          <Parameter Name="putanja" Type="nvarchar" Mode="In" />
+          <Parameter Name="thumb" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GalerijaUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idSlike" Type="int" Mode="In" />
+          <Parameter Name="imeSlike" Type="nvarchar" Mode="In" />
+          <Parameter Name="putanja" Type="nvarchar" Mode="In" />
+          <Parameter Name="thumb" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="JelaDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="JelaInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+          <Parameter Name="cena" Type="decimal" Mode="In" />
+          <Parameter Name="slika" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="JelaUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+          <Parameter Name="cena" Type="decimal" Mode="In" />
+          <Parameter Name="slika" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="KontaktDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="KontaktInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ime" Type="varchar" Mode="In" />
+          <Parameter Name="prezime" Type="varchar" Mode="In" />
+          <Parameter Name="poruka" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="KontaktUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="ime" Type="varchar" Mode="In" />
+          <Parameter Name="prezime" Type="varchar" Mode="In" />
+          <Parameter Name="poruka" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="MeniDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MeniInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+          <Parameter Name="link" Type="nvarchar" Mode="In" />
+          <Parameter Name="prioritet" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MeniUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+          <Parameter Name="link" Type="nvarchar" Mode="In" />
+          <Parameter Name="prioritet" Type="int" Mode="In" />
+        </Function>
+        <Function Name="NarudzbinaPromenaCene" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="cena" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="NarudzbineDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="NarudzbineInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idKorisnik" Type="int" Mode="In" />
+          <Parameter Name="idJelo" Type="int" Mode="In" />
+          <Parameter Name="vreme" Type="datetime" Mode="In" />
+          <Parameter Name="cena" Type="decimal" Mode="In" />
+          <Parameter Name="ime" Type="nvarchar" Mode="In" />
+          <Parameter Name="prezime" Type="nvarchar" Mode="In" />
+          <Parameter Name="adresa" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="NarudzbineUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="idKorisnik" Type="int" Mode="In" />
+          <Parameter Name="idJelo" Type="int" Mode="In" />
+          <Parameter Name="vreme" Type="datetime" Mode="In" />
+          <Parameter Name="cena" Type="decimal" Mode="In" />
+          <Parameter Name="ime" Type="nvarchar" Mode="In" />
+          <Parameter Name="prezime" Type="nvarchar" Mode="In" />
+          <Parameter Name="adresa" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="OdgovorGlasanje" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idOdgovor" Type="int" Mode="In" />
+        </Function>
+        <Function Name="OdgovoriAnketaDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idAnketa" Type="int" Mode="In" />
+        </Function>
+        <Function Name="OdgovoriDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="OdgovoriInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="odgovor" Type="nvarchar" Mode="In" />
+          <Parameter Name="idAnketa" Type="int" Mode="In" />
+          <Parameter Name="brojGlasova" Type="int" Mode="In" />
+        </Function>
+        <Function Name="OdgovoriUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="odgovor" Type="nvarchar" Mode="In" />
+          <Parameter Name="idAnketa" Type="int" Mode="In" />
+          <Parameter Name="brojGlasova" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UlogeDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UlogeInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="UlogeUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="UserDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UserInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="idUloga" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UserUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="idUloga" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="KineskaHranaModelStoreContainer">
+          <EntitySet Name="Ankete" EntityType="Self.Ankete" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dogadjaji" EntityType="Self.Dogadjaji" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Galerija" EntityType="Self.Galerija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jela" EntityType="Self.Jela" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kontakt" EntityType="Self.Kontakt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Korisnici" EntityType="Self.Korisnici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Meni" EntityType="Self.Meni" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Narudzbine" EntityType="Self.Narudzbine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Odgovori" EntityType="Self.Odgovori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uloge" EntityType="Self.Uloge" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KineskaHranaModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="KineskaHranaEntities" p1:LazyLoadingEnabled="false">
+          <EntitySet Name="Kontakts" EntityType="KineskaHranaModel.Kontakt" />
+          <EntitySet Name="Korisnicis" EntityType="KineskaHranaModel.Korisnici" />
+          <EntitySet Name="Narudzbines" EntityType="KineskaHranaModel.Narudzbine" />
+          <EntitySet Name="Uloges" EntityType="KineskaHranaModel.Uloge" />
+          <EntitySet Name="Jelas" EntityType="KineskaHranaModel.Jela" />
+          <FunctionImport Name="UserRegister">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Menis" EntityType="KineskaHranaModel.Meni" />
+          <FunctionImport Name="UserInsert">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="idUloga" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="NaruciJelo">
+            <Parameter Name="idKorisnik" Mode="In" Type="Int32" />
+            <Parameter Name="idJelo" Mode="In" Type="Int32" />
+            <Parameter Name="vreme" Mode="In" Type="Int32" />
+            <Parameter Name="cena" Mode="In" Type="Decimal" />
+            <Parameter Name="ime" Mode="In" Type="String" />
+            <Parameter Name="prezime" Mode="In" Type="String" />
+            <Parameter Name="adresa" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="KontaktInsert">
+            <Parameter Name="ime" Mode="In" Type="String" />
+            <Parameter Name="prezime" Mode="In" Type="String" />
+            <Parameter Name="poruka" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Anketes" EntityType="KineskaHranaModel.Ankete" />
+          <EntitySet Name="Odgovoris" EntityType="KineskaHranaModel.Odgovori" />
+          <FunctionImport Name="OdgovorGlasanje">
+          <Parameter Name="idOdgovor" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Galerijas" EntityType="KineskaHranaModel.Galerija" />
+          <FunctionImport Name="NarudzbineInsert">
+            <Parameter Name="idKorisnik" Mode="In" Type="Int32" />
+            <Parameter Name="idJelo" Mode="In" Type="Int32" />
+            <Parameter Name="vreme" Mode="In" Type="DateTime" />
+            <Parameter Name="cena" Mode="In" Type="Decimal" />
+            <Parameter Name="ime" Mode="In" Type="String" />
+            <Parameter Name="prezime" Mode="In" Type="String" />
+            <Parameter Name="adresa" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AnketeDelete">
+          <Parameter Name="idAnketa" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AnketeInsert">
+            <Parameter Name="pitanje" Mode="In" Type="String" />
+            <Parameter Name="aktivna" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AnketeUpdate">
+            <Parameter Name="idAnketa" Mode="In" Type="Int32" />
+            <Parameter Name="pitanje" Mode="In" Type="String" />
+            <Parameter Name="aktivna" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GalerijaDelete">
+          <Parameter Name="idSlike" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GalerijaInsert">
+            <Parameter Name="imeSlike" Mode="In" Type="String" />
+            <Parameter Name="putanja" Mode="In" Type="String" />
+            <Parameter Name="thumb" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GalerijaUpdate">
+            <Parameter Name="idSlike" Mode="In" Type="Int32" />
+            <Parameter Name="imeSlike" Mode="In" Type="String" />
+            <Parameter Name="putanja" Mode="In" Type="String" />
+            <Parameter Name="thumb" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="JelaDelete">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="JelaInsert">
+            <Parameter Name="naziv" Mode="In" Type="String" />
+            <Parameter Name="cena" Mode="In" Type="Decimal" />
+            <Parameter Name="slika" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="JelaUpdate">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="naziv" Mode="In" Type="String" />
+            <Parameter Name="cena" Mode="In" Type="Decimal" />
+            <Parameter Name="slika" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="KontaktDelete">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="KontaktUpdate">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="ime" Mode="In" Type="String" />
+            <Parameter Name="prezime" Mode="In" Type="String" />
+            <Parameter Name="poruka" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="MeniDelete">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MeniInsert">
+            <Parameter Name="naziv" Mode="In" Type="String" />
+            <Parameter Name="link" Mode="In" Type="String" />
+            <Parameter Name="prioritet" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MeniUpdate">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="naziv" Mode="In" Type="String" />
+            <Parameter Name="link" Mode="In" Type="String" />
+            <Parameter Name="prioritet" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="NarudzbineDelete">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="NarudzbineUpdate">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="idKorisnik" Mode="In" Type="Int32" />
+            <Parameter Name="idJelo" Mode="In" Type="Int32" />
+            <Parameter Name="vreme" Mode="In" Type="DateTime" />
+            <Parameter Name="cena" Mode="In" Type="Decimal" />
+            <Parameter Name="ime" Mode="In" Type="String" />
+            <Parameter Name="prezime" Mode="In" Type="String" />
+            <Parameter Name="adresa" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="OdgovoriDelete">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="OdgovoriInsert">
+            <Parameter Name="odgovor" Mode="In" Type="String" />
+            <Parameter Name="idAnketa" Mode="In" Type="Int32" />
+            <Parameter Name="brojGlasova" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="OdgovoriUpdate">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="odgovor" Mode="In" Type="String" />
+            <Parameter Name="idAnketa" Mode="In" Type="Int32" />
+            <Parameter Name="brojGlasova" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UlogeDelete">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UlogeInsert">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UlogeUpdate">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UserDelete">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UserUpdate">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="idUloga" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Dogadjajis" EntityType="KineskaHranaModel.Dogadjaji" />
+          <FunctionImport Name="DogadjajInsert">
+            <Parameter Name="opis" Mode="In" Type="String" />
+            <Parameter Name="idKorisnik" Mode="In" Type="Int32" />
+            <Parameter Name="vreme" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="AnketePostaviNeaktivne" />
+          <FunctionImport Name="OdgovoriAnketaDelete">
+          <Parameter Name="idAnketa" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="NarudzbinaPromenaCene">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="cena" Mode="In" Type="Decimal" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Kontakt">
+          <Key>
+            <PropertyRef Name="idKontakt" />
+          </Key>
+          <Property Name="idKontakt" Type="Int32" Nullable="false" />
+          <Property Name="ime" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="prezime" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="poruka" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Korisnici">
+          <Key>
+            <PropertyRef Name="idKorisnik" />
+          </Key>
+          <Property Name="idKorisnik" Type="Int32" Nullable="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="idUloga" Type="Int32" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Narudzbine">
+          <Key>
+            <PropertyRef Name="idNarudzbina" />
+          </Key>
+          <Property Name="idNarudzbina" Type="Int32" Nullable="false" />
+          <Property Name="idKorisnik" Type="Int32" Nullable="false" />
+          <Property Name="idJelo" Type="Int32" Nullable="false" />
+          <Property Name="vreme" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cena" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adresa" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uloge">
+          <Key>
+            <PropertyRef Name="idUloga" />
+          </Key>
+          <Property Name="idUloga" Type="Int32" Nullable="false" />
+          <Property Name="nazivUloga" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Jela">
+          <Key>
+            <PropertyRef Name="idJelo" />
+          </Key>
+          <Property Type="Int32" Name="idJelo" Nullable="false" />
+          <Property Type="String" Name="nazivJelo" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="cena" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="slika" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Meni">
+          <Key>
+            <PropertyRef Name="idMeni" />
+          </Key>
+          <Property Name="idMeni" Type="Int32" Nullable="false" />
+          <Property Name="naziv_meni" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="link_meni" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="prioritet_meni" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ankete">
+          <Key>
+            <PropertyRef Name="idAnketa" />
+          </Key>
+          <Property Name="idAnketa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pitanje" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="aktivna" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Odgovori">
+          <Key>
+            <PropertyRef Name="idOdgovor" />
+          </Key>
+          <Property Name="idOdgovor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="odgovor" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="idAnketa" Type="Int32" Nullable="false" />
+          <Property Name="brojGlasova" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Galerija">
+          <Key>
+            <PropertyRef Name="idSlike" />
+          </Key>
+          <Property Name="idSlike" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime_slike" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="putanja_slike" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="putanja_thumbnail" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dogadjaji">
+          <Key>
+            <PropertyRef Name="idDogadjaj" />
+          </Key>
+          <Property Name="idDogadjaj" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dogadjaj_opis" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="id_korisnik" Type="Int32" Nullable="false" />
+          <Property Name="vreme" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KineskaHranaModelStoreContainer" CdmEntityContainer="KineskaHranaEntities">
+          <EntitySetMapping Name="Kontakts">
+            <EntityTypeMapping TypeName="KineskaHranaModel.Kontakt">
+              <MappingFragment StoreEntitySet="Kontakt">
+                <ScalarProperty Name="idKontakt" ColumnName="idKontakt" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="poruka" ColumnName="poruka" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Korisnicis">
+            <EntityTypeMapping TypeName="KineskaHranaModel.Korisnici">
+              <MappingFragment StoreEntitySet="Korisnici">
+                <ScalarProperty Name="idKorisnik" ColumnName="idKorisnik" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="idUloga" ColumnName="idUloga" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Narudzbines">
+            <EntityTypeMapping TypeName="KineskaHranaModel.Narudzbine">
+              <MappingFragment StoreEntitySet="Narudzbine">
+                <ScalarProperty Name="adresa" ColumnName="adresa" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+                <ScalarProperty Name="idNarudzbina" ColumnName="idNarudzbina" />
+                <ScalarProperty Name="idKorisnik" ColumnName="idKorisnik" />
+                <ScalarProperty Name="idJelo" ColumnName="idJelo" />
+                <ScalarProperty Name="vreme" ColumnName="vreme" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uloges">
+            <EntityTypeMapping TypeName="KineskaHranaModel.Uloge">
+              <MappingFragment StoreEntitySet="Uloge">
+                <ScalarProperty Name="idUloga" ColumnName="idUloga" />
+                <ScalarProperty Name="nazivUloga" ColumnName="nazivUloga" />
+                </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jelas">
+            <EntityTypeMapping TypeName="KineskaHranaModel.Jela">
+              <MappingFragment StoreEntitySet="Jela">
+                <ScalarProperty Name="slika" ColumnName="slika" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+                <ScalarProperty Name="nazivJelo" ColumnName="nazivJelo" />
+                <ScalarProperty Name="idJelo" ColumnName="idJelo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menis">
+            <EntityTypeMapping TypeName="KineskaHranaModel.Meni">
+              <MappingFragment StoreEntitySet="Meni">
+                <ScalarProperty Name="prioritet_meni" ColumnName="prioritet_meni" />
+                <ScalarProperty Name="link_meni" ColumnName="link_meni" />
+                <ScalarProperty Name="naziv_meni" ColumnName="naziv_meni" />
+                <ScalarProperty Name="idMeni" ColumnName="idMeni" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="UserInsert" FunctionName="KineskaHranaModel.Store.UserInsert" />
+          <FunctionImportMapping FunctionImportName="KontaktInsert" FunctionName="KineskaHranaModel.Store.KontaktInsert" />
+          <EntitySetMapping Name="Anketes">
+            <EntityTypeMapping TypeName="KineskaHranaModel.Ankete">
+              <MappingFragment StoreEntitySet="Ankete">
+                <ScalarProperty Name="aktivna" ColumnName="aktivna" />
+                <ScalarProperty Name="pitanje" ColumnName="pitanje" />
+                <ScalarProperty Name="idAnketa" ColumnName="idAnketa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Odgovoris">
+            <EntityTypeMapping TypeName="KineskaHranaModel.Odgovori">
+              <MappingFragment StoreEntitySet="Odgovori">
+                <ScalarProperty Name="brojGlasova" ColumnName="brojGlasova" />
+                <ScalarProperty Name="idAnketa" ColumnName="idAnketa" />
+                <ScalarProperty Name="odgovor" ColumnName="odgovor" />
+                <ScalarProperty Name="idOdgovor" ColumnName="idOdgovor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="OdgovorGlasanje" FunctionName="KineskaHranaModel.Store.OdgovorGlasanje" />
+          <EntitySetMapping Name="Galerijas">
+            <EntityTypeMapping TypeName="KineskaHranaModel.Galerija">
+              <MappingFragment StoreEntitySet="Galerija">
+                <ScalarProperty Name="putanja_thumbnail" ColumnName="putanja_thumbnail" />
+                <ScalarProperty Name="putanja_slike" ColumnName="putanja_slike" />
+                <ScalarProperty Name="ime_slike" ColumnName="ime_slike" />
+                <ScalarProperty Name="idSlike" ColumnName="idSlike" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="NarudzbineInsert" FunctionName="KineskaHranaModel.Store.NarudzbineInsert" />
+          <FunctionImportMapping FunctionImportName="AnketeDelete" FunctionName="KineskaHranaModel.Store.AnketeDelete" />
+          <FunctionImportMapping FunctionImportName="AnketeInsert" FunctionName="KineskaHranaModel.Store.AnketeInsert" />
+          <FunctionImportMapping FunctionImportName="AnketeUpdate" FunctionName="KineskaHranaModel.Store.AnketeUpdate" />
+          <FunctionImportMapping FunctionImportName="GalerijaDelete" FunctionName="KineskaHranaModel.Store.GalerijaDelete" />
+          <FunctionImportMapping FunctionImportName="GalerijaInsert" FunctionName="KineskaHranaModel.Store.GalerijaInsert" />
+          <FunctionImportMapping FunctionImportName="GalerijaUpdate" FunctionName="KineskaHranaModel.Store.GalerijaUpdate" />
+          <FunctionImportMapping FunctionImportName="JelaDelete" FunctionName="KineskaHranaModel.Store.JelaDelete" />
+          <FunctionImportMapping FunctionImportName="JelaInsert" FunctionName="KineskaHranaModel.Store.JelaInsert" />
+          <FunctionImportMapping FunctionImportName="JelaUpdate" FunctionName="KineskaHranaModel.Store.JelaUpdate" />
+          <FunctionImportMapping FunctionImportName="KontaktDelete" FunctionName="KineskaHranaModel.Store.KontaktDelete" />
+          <FunctionImportMapping FunctionImportName="KontaktUpdate" FunctionName="KineskaHranaModel.Store.KontaktUpdate" />
+          <FunctionImportMapping FunctionImportName="MeniDelete" FunctionName="KineskaHranaModel.Store.MeniDelete" />
+          <FunctionImportMapping FunctionImportName="MeniInsert" FunctionName="KineskaHranaModel.Store.MeniInsert" />
+          <FunctionImportMapping FunctionImportName="MeniUpdate" FunctionName="KineskaHranaModel.Store.MeniUpdate" />
+          <FunctionImportMapping FunctionImportName="NarudzbineDelete" FunctionName="KineskaHranaModel.Store.NarudzbineDelete" />
+          <FunctionImportMapping FunctionImportName="NarudzbineUpdate" FunctionName="KineskaHranaModel.Store.NarudzbineUpdate" />
+          <FunctionImportMapping FunctionImportName="OdgovoriDelete" FunctionName="KineskaHranaModel.Store.OdgovoriDelete" />
+          <FunctionImportMapping FunctionImportName="OdgovoriInsert" FunctionName="KineskaHranaModel.Store.OdgovoriInsert" />
+          <FunctionImportMapping FunctionImportName="OdgovoriUpdate" FunctionName="KineskaHranaModel.Store.OdgovoriUpdate" />
+          <FunctionImportMapping FunctionImportName="UlogeDelete" FunctionName="KineskaHranaModel.Store.UlogeDelete" />
+          <FunctionImportMapping FunctionImportName="UlogeInsert" FunctionName="KineskaHranaModel.Store.UlogeInsert" />
+          <FunctionImportMapping FunctionImportName="UlogeUpdate" FunctionName="KineskaHranaModel.Store.UlogeUpdate" />
+          <FunctionImportMapping FunctionImportName="UserDelete" FunctionName="KineskaHranaModel.Store.UserDelete" />
+          <FunctionImportMapping FunctionImportName="UserUpdate" FunctionName="KineskaHranaModel.Store.UserUpdate" />
+          <EntitySetMapping Name="Dogadjajis">
+            <EntityTypeMapping TypeName="KineskaHranaModel.Dogadjaji">
+              <MappingFragment StoreEntitySet="Dogadjaji">
+                <ScalarProperty Name="vreme" ColumnName="vreme" />
+                <ScalarProperty Name="id_korisnik" ColumnName="id_korisnik" />
+                <ScalarProperty Name="dogadjaj_opis" ColumnName="dogadjaj_opis" />
+                <ScalarProperty Name="idDogadjaj" ColumnName="idDogadjaj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DogadjajInsert" FunctionName="KineskaHranaModel.Store.DogadjajInsert" />
+          <FunctionImportMapping FunctionImportName="AnketePostaviNeaktivne" FunctionName="KineskaHranaModel.Store.AnketePostaviNeaktivne" />
+          <FunctionImportMapping FunctionImportName="OdgovoriAnketaDelete" FunctionName="KineskaHranaModel.Store.OdgovoriAnketaDelete" />
+          <FunctionImportMapping FunctionImportName="NarudzbinaPromenaCene" FunctionName="KineskaHranaModel.Store.NarudzbinaPromenaCene" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

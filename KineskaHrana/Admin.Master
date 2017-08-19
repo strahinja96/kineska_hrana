@@ -1,0 +1,39 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="KineskaHrana.Admin" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link rel="shortcut icon" href="./images/favicon.ico"/>
+	<script src="../js/jquery-1.11.0.min.js" type="text/javascript" charset="utf-8"></script>	
+	<script src="../js/lightbox.min.js"></script>
+	<link rel="stylesheet" href="./css/lightbox.css" type="text/css"/>
+	<script language="JavaScript" src="../js/script.js"></script>
+	<link rel="stylesheet" href="./css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="./js/unslider-master/dist/css/unslider.css"/>
+    <link rel="stylesheet" href="./js/unslider-master/dist/css/unslider-dots.css"/>
+    <script src="../js/unslider-master/src/js/unslider.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div class="container100 bg1 headerDiv">
+		<div class="container50 left paddingT30L30"><h1>Kineska kuhinja</h1></div>
+		<div class="container50 right paddingT30L30">
+			<ul class="menu" id="navigacija" runat="server">
+                
+			</ul>
+		</div>
+	</div>
+	<div class="container80 centerDiv contentDiv">
+		 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+         </asp:ContentPlaceHolder>
+	</div>
+	<div class="container100 bg3 footerDiv">
+		<h5 class="tekstCentar">Strahinja Balalic 91/14</h5>
+        <h6 class="tekstCentar">Web Programiranje ASP (2017)</h6>
+	</div>
+</body>
+    
+</html>
